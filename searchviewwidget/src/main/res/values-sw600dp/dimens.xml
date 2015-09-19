@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="recyclerview_height">320dp</dimen>
+    <dimen name="toolbar_height">64dp</dimen>
+    <dimen name="toolbar_padding">24dp</dimen>
+    <dimen name="persistent_height">48dp</dimen>
+    <dimen name="persistent_margin">8dp</dimen>
+    <dimen name="persistent_padding">16dp</dimen>
+    <dimen name="persistent_icon">24dp</dimen>
+    <dimen name="persistent_layout_margin">26dp</dimen>
+    <dimen name="persistent_item_margin">30dp</dimen>
+
+</resources>

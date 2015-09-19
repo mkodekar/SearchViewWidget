@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">MaterialSearchView</string>
+
+    <string-array name="colors" translatable="false">
+        <item>#99cc00</item>
+        <item>#33b5e5</item>
+        <item>#0099cc</item>
+    </string-array>
+
+</resources>
