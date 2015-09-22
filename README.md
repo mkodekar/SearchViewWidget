@@ -4,12 +4,9 @@ Changed project from https://github.com/krishnakapil/MaterialSeachView.
 Big THANK YOU !
 
 ![Screenshot 1]
-(https://github.com/OCman/SearchViewWidget/blob/master/images/image_1.png)    
-![Screenshot 2]
-(https://github.com/OCman/SearchViewWidget/blob/master/images/image_2.png)    
-![Screenshot 3]
-(https://github.com/OCman/SearchViewWidget/blob/master/images/image_3.png)
-![Screenshot 4]
+(https://github.com/OCman/SearchViewWidget/blob/master/images/image_1.png)    ![Screenshot 2]
+(https://github.com/OCman/SearchViewWidget/blob/master/images/image_2.png)    ![Screenshot 3]
+(https://github.com/OCman/SearchViewWidget/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/OCman/SearchViewWidget/blob/master/images/image_4.png)    
 
 Add MaterialSearchView to your layout file
