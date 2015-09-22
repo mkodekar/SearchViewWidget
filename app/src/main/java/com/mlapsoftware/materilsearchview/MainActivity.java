@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         List<SearchViewItem> mArrayList = new ArrayList<>();
-        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mArrayList, true); // false
+        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mArrayList, false); // true
         mSearchViewAdapter.setOnItemClickListener(new SearchViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

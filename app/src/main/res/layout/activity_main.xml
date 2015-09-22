@@ -24,8 +24,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            app:search_style="classic"
-            app:search_theme="light"/>
+            app:search_style="color"
+            app:search_theme="dark"/>
 
 </RelativeLayout>
 
