@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview;
+package com.mlapsoftware.materilsearchview.deprecated;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,10 +9,14 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.mlapsoftware.searchviewwidget.R;
+
+import com.mlapsoftware.materilsearchview.R;
 
 import java.util.Random;
-
+    /*    String name = "SAsda";
+        LetterImageView letterImageView = (LetterImageView) findViewById(R.id.letter);
+        letterImageView.setOval(true);
+        letterImageView.setLetter(name.charAt(0));*/
 
 public class LetterImageView extends ImageView {
 
@@ -95,4 +99,5 @@ public class LetterImageView extends ImageView {
         String[] colorsArr = getResources().getStringArray(R.array.colors);
         return Color.parseColor(colorsArr[random.nextInt(colorsArr.length)]);
     }
+
 }

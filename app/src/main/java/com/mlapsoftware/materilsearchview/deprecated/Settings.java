@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview;
+package com.mlapsoftware.materilsearchview.deprecated;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

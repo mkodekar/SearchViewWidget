@@ -1,11 +1,12 @@
-package com.mlapsoftware.searchviewwidget.library;
+package com.mlapsoftware.searchviewwidget;
 
-public class SearchItem {
+
+public class SearchViewItem {
 
     private int icon;
     private String text;
 
-    public SearchItem(int icon, String text) {
+    public SearchViewItem(int icon, String text) {
         this.icon = icon;
         this.text = text;
     }

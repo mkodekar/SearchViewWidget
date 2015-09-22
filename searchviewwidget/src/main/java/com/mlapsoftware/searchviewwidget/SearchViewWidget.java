@@ -1,4 +1,4 @@
-package com.mlapsoftware.searchviewwidget.library;
+package com.mlapsoftware.searchviewwidget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,6 @@ import android.speech.RecognizerIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -27,24 +26,21 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Filter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.mlapsoftware.searchviewwidget.AnimationUtil;
-import com.mlapsoftware.searchviewwidget.R;
 
 import java.util.List;
 
 
-public class SearchViewWidget extends FrameLayout implements Filter.FilterListener {
+public class SearchViewWidget extends RelativeLayout implements Filter.FilterListener {
 
     public static final int REQUEST_VOICE = 9999;
 
-    public static final int STYLE_LIGHT = 0;
-    public static final int STYLE_LIGHT_COLOR = 1;
-    public static final int STYLE_DARK = 2;
-    public static final int STYLE_DARK_COLOR = 3;
+    public static final int STYLE_CLASSIC = 0;
+    public static final int STYLE_COLOR = 1;
+    public static final int THEME_LIGHT = 0;
+    public static final int THEME_DARK = 1;
 
     private boolean mIsSearchOpen = false;
     private boolean mClearingFocus;
@@ -60,10 +56,11 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
     private CharSequence mUserQuery;
     private OnQueryTextListener mOnQueryChangeListener;
     private SearchViewListener mSearchViewListener;
-    private SearchAdapter mAdapter;
+    private SearchViewAdapter mAdapter;
     private SavedState mSavedState;
     private Context mContext;
     private CardView mCardView;
+    private int mStyle = 0;
 
 
     public SearchViewWidget(Context context) {
@@ -87,10 +84,12 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
         mSearchLayout = findViewById(R.id.search_layout);
         mCardView = (CardView) mSearchLayout.findViewById(R.id.cardView);
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mSuggestionsRecyclerView = (RecyclerView) mSearchLayout.findViewById(R.id.recyclerView);
-        mSuggestionsRecyclerView.setHasFixedSize(true);
-        mSuggestionsRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mSuggestionsRecyclerView.setLayoutManager(layoutManager);
+        //mSuggestionsRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, null));
         mSuggestionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mSuggestionsRecyclerView.setVisibility(GONE);
 
         mSearchEditText = (EditText) mSearchLayout.findViewById(R.id.editText_input);
         mBackImageView = (ImageView) mSearchLayout.findViewById(R.id.imageView_arrow_back);
@@ -104,11 +103,10 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
         mVoiceImageView.setOnClickListener(mOnClickListener);
         mEmptyImageView.setOnClickListener(mOnClickListener);
         mTintView.setOnClickListener(mOnClickListener);
+        mSeparatorView.setVisibility(GONE);
 
         showVoice(true);
         initSearchView();
-        mSuggestionsRecyclerView.setVisibility(GONE);
-        mSeparatorView.setVisibility(GONE);
     }
 
     private void initStyle(AttributeSet attributeSet, int defStyleAttr) {
@@ -118,6 +116,9 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
                 if (attr.hasValue(R.styleable.SearchViewWidget_search_style)) {
                     setStyle(attr.getInt(R.styleable.SearchViewWidget_search_style, 0));
                 }
+                if (attr.hasValue(R.styleable.SearchViewWidget_search_theme)) {
+                    setTheme(attr.getInt(R.styleable.SearchViewWidget_search_theme, 0));
+                }
             } finally {
                 attr.recycle();
             }
@@ -125,64 +126,46 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
     }
 
     public void setStyle(int style) {
-        if (style == STYLE_LIGHT) {
-            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-
+        if (style == STYLE_CLASSIC) {
             mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
             mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
             mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
+        }
+        if (style == STYLE_COLOR) {
+            mBackImageView.setImageResource(R.drawable.ic_arrow_back_color_24dp);
+            mVoiceImageView.setImageResource(R.drawable.ic_mic_color_24dp);
+            mEmptyImageView.setImageResource(R.drawable.ic_clear_color_24dp);
+        }
+        mStyle = style;
+    }
 
-            mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
-
+    public void setTheme(int theme) {
+        if (theme == THEME_LIGHT) {
+            if (mStyle == STYLE_CLASSIC) {
+                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+                mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_light_icon));
+            }
+            mSeparatorView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_separator));
+            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
+            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
             mSearchEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
             mSearchEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_light_text_hint));
         }
-        if (style == STYLE_LIGHT_COLOR) {
-            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_color_24dp);
-            mVoiceImageView.setImageResource(R.drawable.ic_mic_color_24dp);
-            mEmptyImageView.setImageResource(R.drawable.ic_clear_color_24dp);
-
-            mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_light_background));
-            mSearchEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_light_text));
-            mSearchEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_light_text_hint));
-        }
-        if (style == STYLE_DARK) {
-            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_1));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_1));
-
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_black_24dp);
-            mVoiceImageView.setImageResource(R.drawable.ic_mic_black_24dp);
-            mEmptyImageView.setImageResource(R.drawable.ic_clear_black_24dp);
-
-            mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-            mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-            mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
-
-            mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_1));
+        if (theme == THEME_DARK) {
+            if (mStyle == STYLE_CLASSIC) {
+                mBackImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                mVoiceImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+                mEmptyImageView.setColorFilter(ContextCompat.getColor(mContext, R.color.search_dark_icon));
+            }
+            mSeparatorView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_separator));
+            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
+            mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             mSearchEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
             mSearchEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text_hint));
         }
-        if (style == STYLE_DARK_COLOR) {
-            mSuggestionsRecyclerView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_2));
-            mCardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_2));
-
-            mBackImageView.setImageResource(R.drawable.ic_arrow_back_color_24dp);
-            mVoiceImageView.setImageResource(R.drawable.ic_mic_color_24dp);
-            mEmptyImageView.setImageResource(R.drawable.ic_clear_color_24dp);
-
-            mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background_2));
-            mSearchEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
-            mSearchEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text_hint));
-        }
-        // mBackBtn.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_color_24dp));
-        //setStyle(ContextCompat.getColor(mContext, R.color.cardview_light_background));R.color.cardview_light_background));
     }
 
     private void initSearchView() {
@@ -340,7 +323,7 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
         }
     }
 
-    public void setAdapter(SearchAdapter adapter) {
+    public void setAdapter(SearchViewAdapter adapter) {
         mAdapter = adapter;
         mSuggestionsRecyclerView.setAdapter(adapter);
         startFilter(mSearchEditText.getText());
@@ -382,7 +365,7 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
         mSearchEditText.setText(null);
         mSearchEditText.requestFocus();
 
-        if (!animate) {
+        if (animate) {
             AnimationUtil.fadeInView(mSearchLayout, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
                 @Override
                 public boolean onAnimationStart(View view) {
@@ -446,28 +429,12 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
     }
 
     @Override
-    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
-        if (mClearingFocus) return false;
-        if (!isFocusable()) return false;
-        return mSearchEditText.requestFocus(direction, previouslyFocusedRect);
-    }
-
-    @Override
     public void clearFocus() {
         mClearingFocus = true;
         hideKeyboard(this);
         super.clearFocus();
         mSearchEditText.clearFocus();
         mClearingFocus = false;
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        mSavedState = new SavedState(superState);
-        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
-        mSavedState.isSearchOpen = this.mIsSearchOpen;
-        return mSavedState;
     }
 
     @Override
@@ -482,6 +449,22 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
             setQuery(mSavedState.query, false);
         }
         super.onRestoreInstanceState(mSavedState.getSuperState());
+    }
+
+    @Override
+    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
+        if (mClearingFocus) return false;
+        if (!isFocusable()) return false;
+        return mSearchEditText.requestFocus(direction, previouslyFocusedRect);
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        mSavedState = new SavedState(superState);
+        mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
+        mSavedState.isSearchOpen = this.mIsSearchOpen;
+        return mSavedState;
     }
 
     private static class SavedState extends BaseSavedState {
@@ -518,16 +501,19 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
     }
 
     public interface OnQueryTextListener {
+
         boolean onQueryTextSubmit(String query);
 
         boolean onQueryTextChange(String newText);
     }
 
     public interface SearchViewListener {
+
         void onSearchViewShown();
 
         void onSearchViewClosed();
     }
+
     //private int mType; // boolean Boolean String CharSequence
        /* @Override
     public void setBackgroundColor(int color) {
@@ -560,3 +546,7 @@ public class SearchViewWidget extends FrameLayout implements Filter.FilterListen
     }
 //   LayoutInflater.from(mContext).inflate((mType == 0 ? R.layout.expandable_widget
 //          : R.layout.persistent_widget), this, true);*/
+
+
+// mBackBtn.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_color_24dp));
+//setStyle(ContextCompat.getColor(mContext, R.color.cardview_light_background));R.color.cardview_light_background));

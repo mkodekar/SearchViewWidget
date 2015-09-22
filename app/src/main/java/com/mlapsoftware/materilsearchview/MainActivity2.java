@@ -1,5 +1,5 @@
 
-   /* private class SearchAdapter extends BaseAdapter implements Filterable {
+   /* private class SearchViewAdapter extends BaseAdapter implements Filterable {
 
         private ArrayList<String> data;
 
@@ -7,7 +7,7 @@
 
         LayoutInflater inflater;
 
-        public SearchAdapter() {
+        public SearchViewAdapter() {
             inflater = LayoutInflater.from(MainActivity.this);
             data = new ArrayList<String>();
             typeAheadData = getResources().getStringArray(R.array.state_array_full);

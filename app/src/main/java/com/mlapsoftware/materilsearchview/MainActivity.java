@@ -7,17 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.mlapsoftware.searchviewwidget.library.SearchItem;
-import com.mlapsoftware.searchviewwidget.library.SearchAdapter;
-import com.mlapsoftware.searchviewwidget.library.SearchViewWidget;
+import com.mlapsoftware.searchviewwidget.SearchViewAdapter;
+import com.mlapsoftware.searchviewwidget.SearchViewItem;
+import com.mlapsoftware.searchviewwidget.SearchViewWidget;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,15 +30,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String name = "SAsda";
-        LetterImageView letterImageView = (LetterImageView) findViewById(R.id.letter);
-        letterImageView.setOval(true);
-        letterImageView.setLetter(name.charAt(0));
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        searchViewWidget = (SearchViewWidget) findViewById(R.id.search_view);
+        searchViewWidget = (SearchViewWidget) findViewById(R.id.search_view_widget);
         searchViewWidget.setOnQueryTextListener(new SearchViewWidget.OnQueryTextListener() {
 
             @Override
@@ -60,29 +57,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        List<SearchItem> mArrayList = new ArrayList<>();
-        SearchAdapter mSearchAdapter = new SearchAdapter(mArrayList);
-        mSearchAdapter.setOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+        List<SearchViewItem> mArrayList = new ArrayList<>();
+        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mArrayList, true); // false
+        mSearchViewAdapter.setOnItemClickListener(new SearchViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                TextView mText = (TextView) view.findViewById(R.id.textView_result);
                 CharSequence text = "Hello toast!";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(getApplicationContext(), text, duration);
                 toast.show();
-               // view.setSelected(true);
-              /*  selectItem(position);
-                View mainContent = findViewById(R.id.drawerLayout);
-                if (mainContent != null) {
-                    mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                }*/
+
             }
         });
-        searchViewWidget.setAdapter(mSearchAdapter);
+        searchViewWidget.setAdapter(mSearchViewAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchViewWidget.setMenuItem(item);
         return true;
@@ -113,18 +107,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:///////////////////////////////////////////////
+            case android.R.id.home:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return true;
     }
 
 }

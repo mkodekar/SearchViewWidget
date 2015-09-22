@@ -4,16 +4,13 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.view.View;
 
+
 public class AnimationUtil {
 
     public static final int ANIMATION_DURATION_SHORT = 150;
     public static final int ANIMATION_DURATION_MEDIUM = 400;
-    public static final int ANIMATION_DURATION_LONG = 800;
 
     public interface AnimationListener {
-        /**
-         * @return true to override parent. Else execute Parent method
-         */
         boolean onAnimationStart(View view);
 
         boolean onAnimationEnd(View view);
@@ -48,7 +45,6 @@ public class AnimationUtil {
                 @Override
                 public void onAnimationStart(View view) {
                     if (!listener.onAnimationStart(view)) {
-                        //execute Parent MEthod
                         view.setDrawingCacheEnabled(true);
                     }
                 }
@@ -85,7 +81,6 @@ public class AnimationUtil {
             @Override
             public void onAnimationStart(View view) {
                 if (listener == null || !listener.onAnimationStart(view)) {
-                    //execute Parent MEthod
                     view.setDrawingCacheEnabled(true);
                 }
             }
@@ -93,9 +88,7 @@ public class AnimationUtil {
             @Override
             public void onAnimationEnd(View view) {
                 if (listener == null || !listener.onAnimationEnd(view)) {
-                    //execute Parent MEthod
                     view.setVisibility(View.GONE);
-                    //view.setAlpha(1f);
                     view.setDrawingCacheEnabled(false);
                 }
             }
@@ -103,7 +96,6 @@ public class AnimationUtil {
             @Override
             public void onAnimationCancel(View view) {
                 if (listener == null || !listener.onAnimationCancel(view)) {
-                    //execute Parent MEthod
                 }
             }
         });

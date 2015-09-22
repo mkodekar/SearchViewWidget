@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview.draw;
+package com.mlapsoftware.materilsearchview.deprecated;
 
 import android.content.Context;
 import android.graphics.Bitmap;

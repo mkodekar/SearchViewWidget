@@ -3,10 +3,12 @@
 
     <declare-styleable name="SearchViewWidget">
         <attr name="search_style" format="enum">
+            <enum name="classic" value="0" />
+            <enum name="color" value="1" />
+        </attr>
+        <attr name="search_theme" format="enum">
             <enum name="light" value="0" />
-            <enum name="light_color" value="1" />
-            <enum name="dark" value="2" />
-            <enum name="dark_color" value="3" />
+            <enum name="dark" value="1" />
         </attr>
     </declare-styleable>
 

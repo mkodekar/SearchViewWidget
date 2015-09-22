@@ -2,17 +2,17 @@
 
     <style name="AppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
         537f2d
-        <item name="colorPrimary">#2eb9b6</item>
-        <item name="colorPrimaryDark">#2baca9</item>
-        <item name="colorAccent">#4ad1ce</item>
+        <item name="colorPrimary">#3f51b5</item>
+        <item name="colorPrimaryDark">#303f9f</item>
+        <item name="colorAccent">#e91e63</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
         537f2d
-        <item name="colorPrimary">#2eb9b6</item>
-        <item name="colorPrimaryDark">#2baca9</item>
-        <item name="colorAccent">#4ad1ce</item>
+        <item name="colorPrimary">#3f51b5</item>
+        <item name="colorPrimaryDark">#303f9f</item>
+        <item name="colorAccent">#e91e63</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
 

@@ -7,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mlapsoftware.searchviewwidget.R;
-import com.mlapsoftware.searchviewwidget.library.SearchItem;
+import com.mlapsoftware.searchviewwidget.SearchViewItem;
 
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> implements View.OnClickListener {
 
-    private SearchItem[] itemsData;
-    private OnRecyclerViewItemClickListener<SearchItem> itemClickListener;
+    private SearchViewItem[] itemsData;
+    private OnRecyclerViewItemClickListener<SearchViewItem> itemClickListener;
 
-    public MyRecyclerAdapter(SearchItem[] itemsData) {
+    public MyRecyclerAdapter(SearchViewItem[] itemsData) {
         this.itemsData = itemsData;
     }
 
@@ -51,12 +51,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     @Override
     public void onClick(View view) {
         if (itemClickListener != null) {
-            SearchItem itemData = (SearchItem) view.getTag();
+            SearchViewItem itemData = (SearchViewItem) view.getTag();
             itemClickListener.onItemClick(view, itemData);
         }
     }
 
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener<SearchItem> listener) {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener<SearchViewItem> listener) {
         this.itemClickListener = listener;
     }
 }
