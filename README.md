@@ -42,7 +42,7 @@ Add SearchViewWidget to your layout file
 </RelativeLayout>
 ```
 
-#Styling Material Search View
+#Styling SearchViewWidget
 ```
   app:search_style="color"
   app:search_style="classic"
