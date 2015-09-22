@@ -9,7 +9,7 @@ Big THANK YOU !
 (https://github.com/OCman/SearchViewWidget/blob/master/images/image_3.png)    ![Screenshot 4]
 (https://github.com/OCman/SearchViewWidget/blob/master/images/image_4.png)    
 
-Add MaterialSearchView to your layout file
+Add SearchViewWidget to your layout file
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
