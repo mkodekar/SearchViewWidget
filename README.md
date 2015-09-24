@@ -26,11 +26,11 @@ Add SearchViewWidget to your layout file
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?colorPrimary"
-            app:elevation="4dp"
+            // app:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <com.mlapsoftware.searchviewwidget.SearchViewWidget
+        <com.ocman.searchviewwidget.SearchViewWidget
             android:id="@+id/search_view_widget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,4 +49,7 @@ Add SearchViewWidget to your layout file
   
   app:search_theme="dark"
   app:search_theme="light"
+  
+  app:search_divider="true"
+  app:search_divider="false"
 ```
