@@ -18,7 +18,6 @@ Add SearchViewWidget to your layout file
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
         <android.support.v7.widget.Toolbar
