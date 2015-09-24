@@ -1,7 +1,11 @@
 # SearchViewWidget
 
-Changed project from https://github.com/krishnakapil/MaterialSeachView.
-Big THANK YOU !
+Library based on Krishnakapil original version. Big THANK YOU !
+
+<a href="https://play.google.com/store/apps/details?id=com.ocman.searchviewapp">
+  <img alt="Get it on Google Play"
+       src="https://github.com/OCman/SearchViewWidget/blob/master/images/google_play.png" />
+</a>
 
 ![Screenshot 1]
 (https://github.com/OCman/SearchViewWidget/blob/master/images/image_1.png)    ![Screenshot 2]
@@ -25,7 +29,6 @@ Add SearchViewWidget to your layout file
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?colorPrimary"
-            // app:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
