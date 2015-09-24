@@ -1,8 +1,9 @@
-package com.mlapsoftware.searchviewwidget;
+package com.ocman.searchviewwidget;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.recyclerview.BuildConfig;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -267,10 +268,12 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
                 insetsDirtyField = RecyclerView.LayoutParams.class.getDeclaredField("mInsetsDirty");
                 insetsDirtyField.setAccessible(true);
             }
-            insetsDirtyField.set(p, true);
+            try {
+                insetsDirtyField.set(p, true);
+            } catch (IllegalAccessException e) {
+                onMakeInsertDirtyFailed();
+            }
         } catch (NoSuchFieldException e) {
-            onMakeInsertDirtyFailed();
-        } catch (IllegalAccessException e) {
             onMakeInsertDirtyFailed();
         }
     }
@@ -281,4 +284,5 @@ public class LinearLayoutManager extends android.support.v7.widget.LinearLayoutM
             Log.w("LinearLayoutManager", "Can't make LayoutParams insets dirty, decorations measurements might be incorrect");
         }
     }
+
 }

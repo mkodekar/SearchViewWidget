@@ -7,7 +7,6 @@
     <dimen name="persistent_margin">4dp</dimen>
     <dimen name="persistent_padding">16dp</dimen>
     <dimen name="persistent_icon">24dp</dimen>
-
     <dimen name="persistent_margin_8">8dp</dimen>
 
 </resources>

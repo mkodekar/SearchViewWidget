@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview;
+package com.ocman.searchviewwidget;
 
 import org.junit.Test;
 

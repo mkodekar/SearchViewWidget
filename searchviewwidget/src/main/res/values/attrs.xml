@@ -10,6 +10,7 @@
             <enum name="light" value="0" />
             <enum name="dark" value="1" />
         </attr>
+        <attr name="search_divider" format="boolean" />
     </declare-styleable>
 
 </resources>

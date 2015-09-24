@@ -5,35 +5,10 @@
     tools:context=".MainActivity">
 
     <item
-        android:orderInCategory="100"
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_24dp"
+        android:orderInCategory="100"
         android:title="@string/abc_search_hint"
         app:showAsAction="always" />
 
 </menu>
-
-<!--ifRoom
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
-    <item android:id="@+id/action_search"
-          android:title="@string/action_search"
-          android:icon="@drawable/ic_action_search"
-          yourapp:showAsAction="ifRoom|collapseActionView"
-          yourapp:actionViewClass="android.support.v7.widget.SearchView" />
-</menu>
-    <item android:id="@+id/btnSearch"
-          android:title="Search"
-          android:icon="@drawable/ic_action_search"
-          android:showAsAction="always|collapseActionView"
-          android:actionViewClass="android.widget.SearchView"
-          android:queryHint="blah blah"/>
-    <item
-        android:id="@+id/menu"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/search"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
--->

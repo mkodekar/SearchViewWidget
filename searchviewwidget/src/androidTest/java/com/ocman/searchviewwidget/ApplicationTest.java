@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview;
+package com.ocman.searchviewwidget;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

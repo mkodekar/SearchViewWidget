@@ -1,4 +1,4 @@
-package com.mlapsoftware.searchviewwidget;
+package com.ocman.searchviewwidget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -79,7 +79,7 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
     }
 
     private void initiateView() {
-        LayoutInflater.from(mContext).inflate((R.layout.persistent_search_widget), this, true);
+        LayoutInflater.from(mContext).inflate((R.layout.search_view_widget), this, true);
 
         mSearchLayout = findViewById(R.id.search_layout);
         mCardView = (CardView) mSearchLayout.findViewById(R.id.cardView);
@@ -87,7 +87,6 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mSuggestionsRecyclerView = (RecyclerView) mSearchLayout.findViewById(R.id.recyclerView);
         mSuggestionsRecyclerView.setLayoutManager(layoutManager);
-        //mSuggestionsRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, null));
         mSuggestionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSuggestionsRecyclerView.setVisibility(GONE);
 
@@ -118,6 +117,9 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
                 }
                 if (attr.hasValue(R.styleable.SearchViewWidget_search_theme)) {
                     setTheme(attr.getInt(R.styleable.SearchViewWidget_search_theme, 0));
+                }
+                if (attr.hasValue(R.styleable.SearchViewWidget_search_divider)) {
+                    setDivider(attr.getBoolean(R.styleable.SearchViewWidget_search_divider, false));
                 }
             } finally {
                 attr.recycle();
@@ -165,6 +167,12 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
             mSearchEditText.setBackgroundColor(ContextCompat.getColor(mContext, R.color.search_dark_background));
             mSearchEditText.setTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text));
             mSearchEditText.setHintTextColor(ContextCompat.getColor(mContext, R.color.search_dark_text_hint));
+        }
+    }
+
+    public void setDivider(boolean divider) {
+        if (divider) {
+            mSuggestionsRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, null));
         }
     }
 
@@ -237,15 +245,6 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
         if (mContext instanceof Activity) {
             ((Activity) mContext).startActivityForResult(intent, REQUEST_VOICE);
         }
-        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
-        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        //       intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-      /*  try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
-        } catch (ActivityNotFoundException a) {
-            Toast.makeText(getActivity().getApplicationContext(), "Not Supported", Toast.LENGTH_SHORT).show();
-        }*/
-        //Toast.makeText(mContext, "sta", Toast.LENGTH_SHORT).show();
     }
 
     private void onTextChanged(CharSequence newText) {
@@ -514,39 +513,4 @@ public class SearchViewWidget extends RelativeLayout implements Filter.FilterLis
         void onSearchViewClosed();
     }
 
-    //private int mType; // boolean Boolean String CharSequence
-       /* @Override
-    public void setBackgroundColor(int color) {
-        mSearchLayout.setBackgroundColor(color); String
-    }*/
-
-   /* @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(300, View.MeasureSpec.AT_MOST);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }*/
-
 }
-
-/*
-    public float pxFromDp(final Context context, final float dp) {
-        return dp * context.getResources().getDisplayMetrics().density;
-    }
-
-    public float convertDpToPixel(Context context, float dp) {
-        return dp * (context.getResources().getDisplayMetrics().densityDpi / 160f);
-    }
-
-    public float dpFromPx(final Context context, final float px) {
-        return px / context.getResources().getDisplayMetrics().density;
-    }
-
-    public float convertPixelsToDp(Context context, float px) {
-        return px / (context.getResources().getDisplayMetrics().densityDpi / 160f);
-    }
-//   LayoutInflater.from(mContext).inflate((mType == 0 ? R.layout.expandable_widget
-//          : R.layout.persistent_widget), this, true);*/
-
-
-// mBackBtn.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_arrow_back_color_24dp));
-//setStyle(ContextCompat.getColor(mContext, R.color.cardview_light_background));R.color.cardview_light_background));

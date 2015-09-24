@@ -1,4 +1,4 @@
-package com.mlapsoftware.searchviewwidget;
+package com.ocman.searchviewwidget;
 
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -52,7 +52,6 @@ public class AnimationUtil {
                 @Override
                 public void onAnimationEnd(View view) {
                     if (!listener.onAnimationEnd(view)) {
-                        //execute Parent MEthod
                         view.setDrawingCacheEnabled(false);
                     }
                 }
@@ -60,7 +59,6 @@ public class AnimationUtil {
                 @Override
                 public void onAnimationCancel(View view) {
                     if (!listener.onAnimationCancel(view)) {
-                        //execute Parent MEthod
                     }
                 }
             };
@@ -100,4 +98,5 @@ public class AnimationUtil {
             }
         });
     }
+
 }

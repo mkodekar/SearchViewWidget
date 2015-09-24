@@ -1,4 +1,4 @@
-package com.mlapsoftware.materilsearchview;
+package com.ocman.searchviewapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mlapsoftware.searchviewwidget.SearchViewAdapter;
-import com.mlapsoftware.searchviewwidget.SearchViewItem;
-import com.mlapsoftware.searchviewwidget.SearchViewWidget;
+import com.ocman.searchviewwidget.SearchViewAdapter;
+import com.ocman.searchviewwidget.SearchViewItem;
+import com.ocman.searchviewwidget.SearchViewWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         searchViewWidget.setOnSearchViewListener(new SearchViewWidget.SearchViewListener() {
 
             @Override
@@ -57,8 +58,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        List<SearchViewItem> mArrayList = new ArrayList<>();
-        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mArrayList, false); // true
+        List<SearchViewItem> mSuggestionsList = new ArrayList<>();
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Wi-Fi"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Bluetooth"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "GPS"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Ad-Hoc"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Google"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Android"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Piconet"));
+        mSuggestionsList.add(new SearchViewItem(R.drawable.ic_search_black_24dp, "Scatternet"));
+
+        List<SearchViewItem> mResultsList = new ArrayList<>();
+        // choose true for Light Theme, false for Dark Theme.
+        SearchViewAdapter mSearchViewAdapter = new SearchViewAdapter(this, mResultsList, mSuggestionsList, true);
         mSearchViewAdapter.setOnItemClickListener(new SearchViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -122,25 +134,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
-       /*
-                mNavDrawerAdapter = new NavDrawerAdapter(this, mNavDrawerList);
-        mNavDrawerAdapter.setOnItemClickListener(new NavDrawerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                view.setSelected(true);
-                selectItem(position);
-                View mainContent = findViewById(R.id.drawerLayout);
-                if (mainContent != null) {
-                    mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                }
-            }
-        });
-
-*/ /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }*/

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/searchviewwidget/src/main/java/com/mlapsoftware/searchviewwidget/DividerItemDecoration.java" charset="windows-1250" />
-    <file url="file://$PROJECT_DIR$/searchviewwidget/src/main/java/com/mlapsoftware/searchviewwidget/LinearLayoutManager.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/searchviewwidget/src/main/java/com/ocman/searchviewwidget/DividerItemDecoration.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/searchviewwidget/src/main/java/com/ocman/searchviewwidget/LinearLayoutManager.java" charset="windows-1250" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
